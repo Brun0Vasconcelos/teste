@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação PowerPoint</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .slide-container {
+            max-width: 100%;
+            max-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img, video {
+            max-width: 100%;
+            max-height: 80vh;
+        }
+
+        .navigation {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            img, video {
+                max-width: 90%;
+                max-height: 60vh;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <img id="slide" src="Slide1.jpg" alt="Slide 1">
+        <video id="video" controls style="display:none;">
+            <source id="videoSource" src="" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
+    </div>
+
+    <div class="navigation">
+        <button class="btn" onclick="prevSlide()">Voltar</button>
+        <button class="btn" onclick="nextSlide()">Avançar</button>
+    </div>
+
+    <script>
+        // Array com os caminhos das imagens dos slides
+        const slides = [
+            "Slide1.jpg", "Slide2.jpg", "Slide3.jpg", "Slide4.jpg", "Slide5.jpg",
+            "Slide6.jpg", "Slide7.jpg", "Slide8.jpg", "Slide9.jpg", "Slide10.jpg",
+            "Slide11.jpg", "Slide12.jpg", "Slide13.jpg", "Slide14.jpg", "Slide15.jpg",
+            "Slide16.jpg", "Slide17.jpg", "Slide18.jpg", "Slide19.jpg", "Slide20.jpg",
+            "midia1", "midia2", "midia3", "Slide24.jpg", "Slide25.jpg"
+        ];
+
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            const slideImage = document.getElementById("slide");
+            const videoElement = document.getElementById("video");
+            const videoSource = document.getElementById("videoSource");
+
+            if (slides[index] === "midia1" || slides[index] === "midia2" || slides[index] === "midia3") {
+                // Se for um vídeo, mostrar o vídeo correspondente
+                slideImage.style.display = "none";
+                videoElement.style.display = "block";
+
+                if (slides[index] === "midia1") {
+                    videoSource.src = "midia1.mp4";
+                } else if (slides[index] === "midia2") {
+                    videoSource.src = "midia2.mp4";
+                } else if (slides[index] === "midia3") {
+                    videoSource.src = "midia3.mp4";
+                }
+
+                videoElement.load(); // Carrega o vídeo
+            } else {
+                // Se for uma imagem, mostrar a imagem
+                videoElement.style.display = "none";
+                slideImage.style.display = "block";
+                slideImage.src = slides[index];
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+            } else {
+                currentSlide = 0; // Reinicia a apresentação se chegar ao fim
+            }
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+            } else {
+                currentSlide = slides.length - 1; // Vai para o último slide se estiver no início
+            }
+            showSlide(currentSlide);
+        }
+    </script>
+</body>
+</html>
